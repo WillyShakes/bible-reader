@@ -85,7 +85,7 @@ The project follows **Clean Architecture** with strict layer separation and **MV
 ## Module structure
 
 ```
-logos/
+rema/
 ├── androidApp/                 # Android entry point
 ├── iosApp/                     # iOS entry point (Xcode project)
 ├── shared/
