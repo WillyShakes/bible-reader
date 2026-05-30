@@ -226,9 +226,3 @@ Open `iosApp/iosApp.xcodeproj` in Xcode and run on simulator or device.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](https://www.linkedin.com/in/mbouenda)
 [![GitHub](https://img.shields.io/badge/GitHub-WillyShakes-181717?style=flat&logo=github)](https://github.com/WillyShakes)
-
----
-
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
