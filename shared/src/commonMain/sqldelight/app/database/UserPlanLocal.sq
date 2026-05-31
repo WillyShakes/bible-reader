@@ -1,0 +1,41 @@
+CREATE TABLE UserPlanLocal (
+  user_plan_id     TEXT NOT NULL PRIMARY KEY,
+  uid              TEXT NOT NULL,
+  plan_id          TEXT NOT NULL,
+  status           TEXT NOT NULL,
+  start_date       TEXT NOT NULL,
+  entry_position   INTEGER,
+  current_day_index INTEGER NOT NULL DEFAULT 1,
+  projected_end_date TEXT NOT NULL,
+  created_at       INTEGER NOT NULL,
+  updated_at       INTEGER NOT NULL
+);
+
+CREATE INDEX idx_user_plan_uid ON UserPlanLocal (uid);
+
+getActivePlanForUser:
+SELECT * FROM UserPlanLocal
+WHERE uid = ? AND status = 'ACTIVE'
+LIMIT 1;
+
+getAllPlansForUser:
+SELECT * FROM UserPlanLocal
+WHERE uid = ?
+ORDER BY updated_at DESC;
+
+upsertPlan:
+INSERT OR REPLACE INTO UserPlanLocal
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateStatus:
+UPDATE UserPlanLocal
+SET status = ?, updated_at = ?
+WHERE user_plan_id = ?;
+
+updateCurrentDayIndex:
+UPDATE UserPlanLocal
+SET current_day_index = ?, projected_end_date = ?, updated_at = ?
+WHERE user_plan_id = ?;
+
+deletePlansForUser:
+DELETE FROM UserPlanLocal WHERE uid = ?;

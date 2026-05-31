@@ -1,0 +1,33 @@
+CREATE TABLE BookmarkLocal (
+  bookmark_id   TEXT NOT NULL PRIMARY KEY,
+  uid           TEXT NOT NULL,
+  translation   TEXT NOT NULL,
+  book_id       TEXT NOT NULL,
+  chapter_start INTEGER NOT NULL,
+  verse_start   INTEGER NOT NULL,
+  chapter_end   INTEGER NOT NULL,
+  verse_end     INTEGER NOT NULL,
+  text          TEXT NOT NULL,
+  note          TEXT,
+  saved_at      INTEGER NOT NULL,
+  deleted_at    INTEGER
+);
+
+CREATE INDEX idx_bookmark_uid ON BookmarkLocal (uid, saved_at DESC);
+
+getBookmarksForUser:
+SELECT * FROM BookmarkLocal
+WHERE uid = ? AND deleted_at IS NULL
+ORDER BY saved_at DESC;
+
+upsertBookmark:
+INSERT OR REPLACE INTO BookmarkLocal
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+softDeleteBookmark:
+UPDATE BookmarkLocal
+SET deleted_at = ?
+WHERE bookmark_id = ?;
+
+deleteBookmarksForUser:
+DELETE FROM BookmarkLocal WHERE uid = ?;

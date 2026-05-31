@@ -1,0 +1,30 @@
+CREATE TABLE DailyProgressLocal (
+  progress_id  TEXT NOT NULL PRIMARY KEY,
+  uid          TEXT NOT NULL,
+  user_plan_id TEXT NOT NULL,
+  day_index    INTEGER NOT NULL,
+  state        TEXT NOT NULL,
+  completed_at INTEGER,
+  device_id    TEXT NOT NULL,
+  updated_at   INTEGER NOT NULL
+);
+
+CREATE INDEX idx_progress_plan ON DailyProgressLocal (user_plan_id, day_index);
+CREATE INDEX idx_progress_uid ON DailyProgressLocal (uid);
+
+getProgressForPlan:
+SELECT * FROM DailyProgressLocal
+WHERE user_plan_id = ?
+ORDER BY day_index ASC;
+
+getProgressForDay:
+SELECT * FROM DailyProgressLocal
+WHERE user_plan_id = ? AND day_index = ?
+LIMIT 1;
+
+upsertProgress:
+INSERT OR REPLACE INTO DailyProgressLocal
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteProgressForUser:
+DELETE FROM DailyProgressLocal WHERE uid = ?;

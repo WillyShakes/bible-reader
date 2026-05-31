@@ -1,0 +1,21 @@
+CREATE TABLE BibleVerse (
+  translation TEXT NOT NULL,
+  book_id     TEXT NOT NULL,
+  chapter     INTEGER NOT NULL,
+  verse       INTEGER NOT NULL,
+  text        TEXT NOT NULL,
+  PRIMARY KEY (translation, book_id, chapter, verse)
+);
+
+-- Index required by RULES.md performance constraint: chapter queries must use this index.
+-- Verify with EXPLAIN QUERY PLAN before shipping.
+CREATE INDEX idx_bible_verse_chapter ON BibleVerse (translation, book_id, chapter);
+
+getChapter:
+SELECT * FROM BibleVerse
+WHERE translation = ? AND book_id = ? AND chapter = ?
+ORDER BY verse ASC;
+
+getVerse:
+SELECT * FROM BibleVerse
+WHERE translation = ? AND book_id = ? AND chapter = ? AND verse = ?;

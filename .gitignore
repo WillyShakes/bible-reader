@@ -1,0 +1,30 @@
+# Gradle
+.gradle/
+build/
+**/build/
+local.properties
+
+# Kotlin
+.kotlin/
+
+# Android
+google-services.json
+*.jks
+*.keystore
+
+# iOS / Xcode
+xcuserdata/
+**/*.xcuserdata/
+**/*.xcworkspace/xcuserdata/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+GoogleService-Info.plist
+
+# macOS
+.DS_Store
+
+# AI / Claude
+.claude/
+HANDOFF.md
