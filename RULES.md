@@ -176,6 +176,14 @@ All Firestore documents, all local SQLDelight records scoped to the UID, and the
 
 ## Git Rules
 
+- **Never commit or push directly to `main`.** All feature work must happen on a dedicated branch.
+- **At the start of every feature session, create a branch before writing any code:**
+  ```
+  git checkout -b feature/[spec-feature-id]-[short-description]
+  ```
+  Examples: `feature/ac-g-onboarding`, `feature/ac-a-bible-content`, `feature/ac-c-catchup-mechanic`
+- If a branch for the current feature already exists, check it out instead of creating a new one.
+- PRs merge into `main` — Claude Code does not push to `main` directly under any circumstance.
 - Commit message format: `[type]: [what changed]`
   - `feat:` new feature implementation
   - `fix:` bug fix

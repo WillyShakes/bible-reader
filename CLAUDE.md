@@ -395,7 +395,18 @@ Bible text, plan assignment schedules, and reading order definitions are **never
 
 ## Session Startup Checklist
 
-At the start of every session, before writing a single line of code, tell me:
+At the start of every session, before writing a single line of code:
+
+**Step 0 — Branch (mandatory, before anything else):**
+Create or check out the feature branch:
+```
+git checkout -b feature/[spec-feature-id]-[short-description]
+# or, if the branch already exists:
+git checkout feature/[spec-feature-id]-[short-description]
+```
+Never work on `main` directly. See RULES.md §Git Rules.
+
+Then tell me:
 
 1. Which SPEC.md feature and AC(s) you are implementing
 2. Which files you will create or modify (full paths)
