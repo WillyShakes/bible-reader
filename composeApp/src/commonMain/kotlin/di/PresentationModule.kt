@@ -15,7 +15,7 @@ val presentationModule = module {
     viewModel { PlanViewModel(get(), get(), get()) }
     viewModel { CatchUpViewModel(get()) }
     viewModel { BookmarksViewModel(get(), get()) }
-    viewModel { OnboardingViewModel(get(), get()) }
+    viewModel { OnboardingViewModel() }
     viewModel { SyncViewModel(get()) }
     viewModel { NotificationsViewModel() }
 }

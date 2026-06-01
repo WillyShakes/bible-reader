@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.rema.bible.shared.AppPreferences
+import feature.onboarding.OnboardingScreen
 
 /**
  * Root composable. Called from MainActivity (Android) and the iOS @main entry point.
@@ -18,8 +19,13 @@ fun App() {
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable("onboarding") {
-            // TODO (Feature g): replace with OnboardingScreen()
-            Text("Onboarding")
+            OnboardingScreen(
+                onOnboardingComplete = {
+                    navController.navigate("home") {
+                        popUpTo("onboarding") { inclusive = true }
+                    }
+                },
+            )
         }
         composable("home") {
             // TODO (Feature b): replace with PlanScreen() / ReaderScreen()

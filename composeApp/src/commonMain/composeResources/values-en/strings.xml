@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Step 1 — Welcome & Language Selection -->
+    <string name="onboarding_welcome_title">Rema</string>
+    <string name="onboarding_welcome_value_prop">Read the Bible at your own pace, without pressure.</string>
+    <string name="onboarding_language_français">Français</string>
+    <string name="onboarding_language_english">English</string>
+    <string name="onboarding_continue">Continue</string>
+
+    <!-- Step 2 — Grace Philosophy -->
+    <string name="onboarding_grace_body">Life is unpredictable. Some days you will read. Other days you won\'t — and that\'s okay.\n\nRema is not here to judge you. There are no \"lost\" days, no delay counters, no guilt.\n\nEvery time you come back, the app adapts to you. You choose your pace. You stay in control.\n\nLet\'s begin.</string>
+
+    <!-- Step 3 — Reading Mode Selection -->
+    <string name="onboarding_mode_title">How would you like to read?</string>
+    <string name="onboarding_mode_plan_1yr">1-Year Plan</string>
+    <string name="onboarding_mode_plan_1yr_desc">~15 min per day</string>
+    <string name="onboarding_mode_plan_6mo">6-Month Plan</string>
+    <string name="onboarding_mode_plan_6mo_desc">~25 min per day</string>
+    <string name="onboarding_mode_free">Free Reading</string>
+    <string name="onboarding_mode_free_desc">No plan, no pressure — read what you want, when you want.</string>
+
+    <!-- Step 4a — Plan Configuration -->
+    <string name="onboarding_plan_config_title">Configure your plan</string>
+    <string name="onboarding_reading_order_label">Reading order</string>
+    <string name="onboarding_order_canon">Canon</string>
+    <string name="onboarding_order_canon_desc">Genesis → Revelation</string>
+    <string name="onboarding_order_chrono">Chronological</string>
+    <string name="onboarding_order_chrono_desc">In the historical order of events</string>
+    <string name="onboarding_start_date_label">Start date</string>
+    <string name="onboarding_start_date_today">Today</string>
+    <string name="onboarding_already_reading">I\'m already reading the Bible</string>
+    <string name="onboarding_start">Start</string>
+
+    <!-- Step 4b — Free Reading Entry -->
+    <string name="onboarding_free_reading_message">Perfect. Read at your own pace.</string>
+    <string name="onboarding_free_reading_preview_label">You will navigate freely between books and chapters.</string>
+    <string name="onboarding_free_reading_start">Start Reading</string>
+
+    <!-- Step 5 — Translation Selection -->
+    <string name="onboarding_translation_title">Choose your translation</string>
+    <string name="onboarding_translation_ls">Louis Segond 1910</string>
+    <string name="onboarding_translation_kjv">King James Version</string>
+    <string name="onboarding_translation_preview_label">Preview — John 3:16–18</string>
+    <string name="onboarding_translation_preview_ls">« For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life. For God sent not his Son into the world to condemn the world; but that the world through him might be saved. He that believeth on him is not condemned: but he that believeth not is condemned already, because he hath not believed in the name of the only begotten Son of God. »</string>
+    <string name="onboarding_translation_preview_kjv">« For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life. For God sent not his Son into the world to condemn the world; but that the world through him might be saved. He that believeth on him is not condemned: but he that believeth not is condemned already, because he hath not believed in the name of the only begotten Son of God. »</string>
+    <string name="onboarding_confirm">Confirm</string>
+
+    <!-- Step 6 — Account Creation -->
+    <string name="onboarding_account_title">Keep your progress on every device</string>
+    <string name="onboarding_sign_in_apple">Continue with Apple</string>
+    <string name="onboarding_sign_in_google">Continue with Google</string>
+    <string name="onboarding_sign_in_email">Continue with Email</string>
+    <string name="onboarding_no_account">Continue without account</string>
+
+    <!-- Step 7 — Notification Permission -->
+    <string name="onboarding_notif_title">Reading reminders</string>
+    <string name="onboarding_notif_body">One notification per day — only to remind you to read. Never marketing.</string>
+    <string name="onboarding_notif_time_label">Reminder time</string>
+    <string name="onboarding_notif_enable">Enable reminders</string>
+    <string name="onboarding_notif_skip">Not now</string>
+    <string name="onboarding_notif_denied">No problem — you can turn this on later in Settings.</string>
+
+    <!-- Step 8 — Coach mark -->
+    <string name="onboarding_coach_mark_read">Mark this chapter as read</string>
+    <string name="onboarding_coach_mark_dismiss">Got it</string>
+</resources>

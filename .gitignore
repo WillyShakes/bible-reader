@@ -28,3 +28,7 @@ GoogleService-Info.plist
 # AI / Claude
 .claude/
 HANDOFF.md
+CLAUDE.md
+PROJECT.md
+RULES.md
+SPEC.md
