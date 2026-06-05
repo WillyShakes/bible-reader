@@ -4,7 +4,7 @@
 
 ---
 
-[Translation] [AC-G-5] — Step 5 translation preview uses hardcoded John 3:16–18 strings instead of a live BibleRepository query. Replace once Feature a (Bible Content) wires up BibleRepositoryImpl and the SQLDelight database is populated.
+[Translation] [AC-G-5] — Step 5 translation preview uses hardcoded John 3:16–18 strings. Will remain hardcoded until the bundled bible_reader.db asset is populated and BibleRepositoryImpl can serve live verse queries. Replace during or after the database seeding milestone.
 Found during: Feature g — Onboarding
 Priority: P2
 
@@ -31,3 +31,7 @@ Priority: P2
 [Notifications] [AC-G-7] — Time picker in NotificationStep displays a text label instead of a platform-native time picker. Wire via expect/actual before Feature d is implemented.
 Found during: Feature g — Onboarding
 Priority: P2
+
+[BibleContent] [AC-A-1] — The bundled bible_reader.db SQLite asset is not yet present in the repo (composeApp/src/androidMain/assets/ and iosApp/iosApp/). AC-A-1 and AC-A-2 cannot be verified end-to-end until this asset is provided. DatabaseDriverFactory infrastructure is in place and ready. Source data: KJV (public domain) + Louis Segond 1910 (public domain confirmed). DB schema: BibleVerse table with (translation TEXT, book_id TEXT, chapter INTEGER, verse INTEGER, text TEXT). Translation column values: "KJV" and "LSG".
+Found during: Feature a — Bible Content
+Priority: P0

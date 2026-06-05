@@ -2,11 +2,13 @@ package app.rema.bible
 
 import android.app.Application
 import app.rema.bible.shared.AppPreferences
+import data.local.DatabaseDriverFactory
 import di.dataModule
 import di.domainModule
 import di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class BibleReaderApplication : Application() {
     override fun onCreate() {
@@ -17,7 +19,12 @@ class BibleReaderApplication : Application() {
 
         startKoin {
             androidContext(this@BibleReaderApplication)
-            modules(domainModule, dataModule, presentationModule)
+            modules(
+                module { single { DatabaseDriverFactory(androidContext()) } },
+                domainModule,
+                dataModule,
+                presentationModule,
+            )
         }
     }
 }

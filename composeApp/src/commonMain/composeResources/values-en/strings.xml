@@ -63,4 +63,12 @@
     <!-- Step 8 — Coach mark -->
     <string name="onboarding_coach_mark_read">Mark this chapter as read</string>
     <string name="onboarding_coach_mark_dismiss">Got it</string>
+
+    <!-- Reader screen -->
+    <string name="reader_prev_chapter">Previous chapter</string>
+    <string name="reader_next_chapter">Next chapter</string>
+    <string name="reader_translation_toggle">Translation</string>
+    <string name="reader_book_list_title">Books</string>
+    <string name="reader_loading">Loading…</string>
+    <string name="reader_verse_reference_format">%1$s %2$d:%3$d</string>
 </resources>

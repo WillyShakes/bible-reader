@@ -14,7 +14,16 @@ import kotlinx.coroutines.flow.update
 /** Drives the onboarding flow (Steps 1–8, SPEC.md §g). */
 class OnboardingViewModel : ViewModel() {
 
-    private val _uiState = MutableStateFlow(OnboardingUiState())
+    private val _uiState = MutableStateFlow(run {
+        // AC-G-1: pre-select language from device locale on first install.
+        // getDeviceLocale() returns FR when AppPreferences is not yet initialised (JVM tests),
+        // so existing tests that assert FR at init remain stable.
+        val initialLang = AppPreferences.getDeviceLocale()
+        OnboardingUiState(
+            selectedLanguage = initialLang,
+            selectedTranslation = if (initialLang == Language.FR) Translation.LOUIS_SEGOND else Translation.KJV,
+        )
+    })
     val uiState: StateFlow<OnboardingUiState> = _uiState.asStateFlow()
 
     /** Routes user actions to the appropriate state update. */

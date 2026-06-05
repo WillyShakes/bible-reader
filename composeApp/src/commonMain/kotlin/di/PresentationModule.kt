@@ -11,7 +11,7 @@ import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
-    viewModel { ReaderViewModel(get(), get()) }
+    viewModel { ReaderViewModel(get(), get(), get()) }
     viewModel { PlanViewModel(get(), get(), get()) }
     viewModel { CatchUpViewModel(get()) }
     viewModel { BookmarksViewModel(get(), get()) }
