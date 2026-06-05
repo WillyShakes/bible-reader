@@ -103,6 +103,11 @@ def build_db() -> None:
         print(f"{translation_key}: {len(rows):,} verses inserted "
               f"({skipped} apocrypha files skipped) -- db {size_mb:.1f} MB so far")
 
+    # SQLDelight reads PRAGMA user_version to decide whether to call Schema.create().
+    # Must match BibleReaderDatabaseImpl.Schema.version (currently 1).
+    con.execute("PRAGMA user_version = 1")
+    con.commit()
+
     cur.execute("SELECT COUNT(*) FROM BibleVerse WHERE translation='KJV'")
     kjv_count = cur.fetchone()[0]
     cur.execute("SELECT COUNT(*) FROM BibleVerse WHERE translation='LSG'")
