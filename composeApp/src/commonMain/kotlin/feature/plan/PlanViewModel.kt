@@ -1,19 +1,12 @@
 package feature.plan
 
 import androidx.lifecycle.ViewModel
-import domain.usecase.GetActivePlanUseCase
-import domain.usecase.RecalculateScheduleUseCase
-import domain.usecase.SaveDayCompleteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /** Drives the reading plan home and progress screens. */
-class PlanViewModel(
-    private val getActivePlanUseCase: GetActivePlanUseCase,
-    private val saveDayCompleteUseCase: SaveDayCompleteUseCase,
-    private val recalculateScheduleUseCase: RecalculateScheduleUseCase,
-) : ViewModel() {
+class PlanViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(PlanUiState())
     val uiState: StateFlow<PlanUiState> = _uiState.asStateFlow()

@@ -7,7 +7,6 @@ import domain.model.CanonicalBooks
 import domain.model.enums.Language
 import domain.usecase.GetBibleBookUseCase
 import domain.usecase.GetBibleChapterUseCase
-import domain.usecase.SaveDayCompleteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 class ReaderViewModel(
     private val getBibleChapterUseCase: GetBibleChapterUseCase,
     private val getBibleBookUseCase: GetBibleBookUseCase,
-    private val saveDayCompleteUseCase: SaveDayCompleteUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(

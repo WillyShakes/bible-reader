@@ -4,21 +4,20 @@ import app.rema.bible.database.BibleReaderDatabase
 import data.local.DatabaseDriverFactory
 import data.repository.BibleRepositoryImpl
 import domain.repository.BibleRepository
-import domain.usecase.GetActivePlanUseCase
 import domain.usecase.GetBibleBookUseCase
 import domain.usecase.GetBibleChapterUseCase
-import domain.usecase.GetBookmarksUseCase
-import domain.usecase.RecalculateScheduleUseCase
-import domain.usecase.SaveDayCompleteUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
     factory { GetBibleChapterUseCase(get()) }
     factory { GetBibleBookUseCase() }
-    factory { RecalculateScheduleUseCase(get()) }
-    factory { GetBookmarksUseCase(get()) }
-    factory { SaveDayCompleteUseCase(get()) }
-    factory { GetActivePlanUseCase(get()) }
+
+    // Use cases below depend on repositories not yet implemented.
+    // Uncomment each when its feature is being built:
+    // factory { GetActivePlanUseCase(get()) }          — Feature b
+    // factory { SaveDayCompleteUseCase(get()) }        — Feature b
+    // factory { RecalculateScheduleUseCase(get()) }    — Feature c
+    // factory { GetBookmarksUseCase(get()) }           — Feature f
 }
 
 val dataModule = module {
@@ -27,7 +26,7 @@ val dataModule = module {
     single<BibleRepository> { BibleRepositoryImpl(get()) }
 
     // Remaining repository bindings added in their respective feature sessions:
-    // single<UserPlanRepository> { UserPlanRepositoryImpl(get(), get()) }
-    // single<BookmarkRepository> { BookmarkRepositoryImpl(get(), get()) }
-    // single<NotificationRepository> { NotificationRepositoryImpl(get()) }
+    // single<UserPlanRepository> { UserPlanRepositoryImpl(get(), get()) }    — Feature b
+    // single<BookmarkRepository> { BookmarkRepositoryImpl(get(), get()) }    — Feature f
+    // single<NotificationRepository> { NotificationRepositoryImpl(get()) }  — Feature d
 }
