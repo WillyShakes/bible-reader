@@ -32,6 +32,6 @@ Priority: P2
 Found during: Feature g — Onboarding
 Priority: P2
 
-[BibleContent] [AC-A-1] — The bundled bible_reader.db SQLite asset is not yet present in the repo (composeApp/src/androidMain/assets/ and iosApp/iosApp/). AC-A-1 and AC-A-2 cannot be verified end-to-end until this asset is provided. DatabaseDriverFactory infrastructure is in place and ready. Source data: KJV (public domain) + Louis Segond 1910 (public domain confirmed). DB schema: BibleVerse table with (translation TEXT, book_id TEXT, chapter INTEGER, verse INTEGER, text TEXT). Translation column values: "KJV" and "LSG".
-Found during: Feature a — Bible Content
-Priority: P0
+[BibleContent] [AC-G-5] — Translation preview in OnboardingScreen Step 5 still uses hardcoded strings. Now that bible_reader.db is populated (31,102 KJV + 31,170 LSG verses), this can be replaced with live BibleRepository queries. Wire up when there is a convenient integration point (non-blocking).
+Found during: Feature a — Bible Content (resolved P0 → downgraded to P2)
+Priority: P2
