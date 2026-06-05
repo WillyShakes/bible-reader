@@ -33,16 +33,16 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import biblereader.composeapp.generated.resources.Res
 import biblereader.composeapp.generated.resources.reader_book_list_title
-import biblereader.composeapp.generated.resources.reader_loading
 import biblereader.composeapp.generated.resources.reader_next_chapter
 import biblereader.composeapp.generated.resources.reader_prev_chapter
-import biblereader.composeapp.generated.resources.reader_translation_toggle
 import domain.model.BibleBook
 import domain.model.BibleVerse
+import domain.model.CanonicalBooks
 import domain.model.enums.Language
 import domain.model.enums.Translation
 import org.jetbrains.compose.resources.stringResource
@@ -55,21 +55,32 @@ fun ReaderScreen(
     viewModel: ReaderViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    ReaderContent(
+        uiState = uiState,
+        onIntent = viewModel::onIntent,
+    )
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ReaderContent(
+    uiState: ReaderUiState,
+    onIntent: (ReaderIntent) -> Unit,
+) {
     Scaffold(
         topBar = {
             ReaderTopBar(
                 bookName = uiState.bookName,
                 chapter = uiState.chapter,
                 translation = uiState.translation,
-                onOpenBookList = { viewModel.onIntent(ReaderIntent.OpenBookList) },
-                onSwitchTranslation = { viewModel.onIntent(ReaderIntent.SwitchTranslation(it)) },
+                onOpenBookList = { onIntent(ReaderIntent.OpenBookList) },
+                onSwitchTranslation = { onIntent(ReaderIntent.SwitchTranslation(it)) },
             )
         },
         bottomBar = {
             ReaderNavBar(
-                onPrevious = { viewModel.onIntent(ReaderIntent.NavigateToPreviousChapter) },
-                onNext = { viewModel.onIntent(ReaderIntent.NavigateToNextChapter) },
+                onPrevious = { onIntent(ReaderIntent.NavigateToPreviousChapter) },
+                onNext = { onIntent(ReaderIntent.NavigateToNextChapter) },
             )
         },
     ) { innerPadding ->
@@ -94,25 +105,59 @@ fun ReaderScreen(
                     bookName = uiState.bookName,
                     selectedVerseNumber = uiState.selectedVerseNumber,
                     language = uiState.language,
-                    onSelectVerse = { viewModel.onIntent(ReaderIntent.SelectVerse(it)) },
-                    onClearSelection = { viewModel.onIntent(ReaderIntent.ClearVerseSelection) },
+                    onSelectVerse = { onIntent(ReaderIntent.SelectVerse(it)) },
+                    onClearSelection = { onIntent(ReaderIntent.ClearVerseSelection) },
                 )
             }
-
             if (uiState.showBookList) {
                 BookListSheet(
                     books = uiState.bookList,
                     language = uiState.language,
                     onSelectBook = { bookId ->
-                        viewModel.onIntent(ReaderIntent.NavigateToChapter(bookId, 1))
-                        viewModel.onIntent(ReaderIntent.DismissBookList)
+                        onIntent(ReaderIntent.NavigateToChapter(bookId, 1))
+                        onIntent(ReaderIntent.DismissBookList)
                     },
-                    onDismiss = { viewModel.onIntent(ReaderIntent.DismissBookList) },
+                    onDismiss = { onIntent(ReaderIntent.DismissBookList) },
                 )
             }
         }
     }
 }
+
+@Preview
+@Composable
+private fun ReaderContentLoadingPreview() {
+    MaterialTheme {
+        ReaderContent(
+            uiState = ReaderUiState(isLoading = true),
+            onIntent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ReaderContentPopulatedPreview() {
+    MaterialTheme {
+        ReaderContent(
+            uiState = previewUiState(),
+            onIntent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ReaderContentSelectedVersePreview() {
+    MaterialTheme {
+        ReaderContent(
+            uiState = previewUiState().copy(selectedVerseNumber = 1),
+            onIntent = {},
+        )
+    }
+}
+
+// ── Sub-composables ───────────────────────────────────────────────────────────
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -127,18 +172,28 @@ private fun ReaderTopBar(
         title = {
             TextButton(onClick = onOpenBookList) {
                 Text(
-                    text = if (bookName.isNotEmpty()) "$bookName $chapter" else stringResource(Res.string.reader_book_list_title),
+                    text = if (bookName.isNotEmpty()) "$bookName $chapter"
+                    else stringResource(Res.string.reader_book_list_title),
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
         },
         actions = {
-            TranslationToggle(
-                current = translation,
-                onSwitch = onSwitchTranslation,
-            )
+            TranslationToggle(current = translation, onSwitch = onSwitchTranslation)
         },
     )
+}
+
+@Preview
+@Composable
+private fun ReaderTopBarPreview() {
+    MaterialTheme {
+        ReaderTopBar(
+            bookName = "Genèse", chapter = 1,
+            translation = Translation.LOUIS_SEGOND,
+            onOpenBookList = {}, onSwitchTranslation = {},
+        )
+    }
 }
 
 @Composable
@@ -151,6 +206,12 @@ private fun TranslationToggle(
     TextButton(onClick = { onSwitch(next) }) {
         Text(text = label, style = MaterialTheme.typography.labelMedium)
     }
+}
+
+@Preview
+@Composable
+private fun TranslationTogglePreview() {
+    MaterialTheme { TranslationToggle(current = Translation.LOUIS_SEGOND, onSwitch = {}) }
 }
 
 @Composable
@@ -173,7 +234,6 @@ private fun VerseList(
                 verse = verse,
                 bookName = bookName,
                 isSelected = verse.verse == selectedVerseNumber,
-                language = language,
                 onSelect = {
                     if (verse.verse == selectedVerseNumber) onClearSelection()
                     else onSelectVerse(verse.verse)
@@ -189,7 +249,6 @@ private fun VerseRow(
     verse: BibleVerse,
     bookName: String,
     isSelected: Boolean,
-    language: Language,
     onSelect: () -> Unit,
 ) {
     Column(
@@ -203,12 +262,9 @@ private fun VerseRow(
             .padding(vertical = 6.dp),
     ) {
         if (isSelected) {
-            // AC-A-3: display the verse reference when selected
-            val chapterNum = verse.chapter
-            val verseNum = verse.verse
-            val ref = "$bookName $chapterNum:$verseNum"
+            // AC-A-3: show verse reference label when selected
             Text(
-                text = ref,
+                text = "$bookName ${verse.chapter}:${verse.verse}",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 2.dp),
@@ -216,13 +272,22 @@ private fun VerseRow(
         }
         Text(
             text = buildAnnotatedString {
-                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                    append("${verse.verse} ")
-                }
+                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append("${verse.verse} ") }
                 append(verse.text)
             },
             style = MaterialTheme.typography.bodyMedium,
         )
+    }
+}
+
+@Preview
+@Composable
+private fun VerseRowPreview() {
+    MaterialTheme {
+        Column {
+            VerseRow(verse = previewVerse(1), bookName = "Genèse", isSelected = false, onSelect = {})
+            VerseRow(verse = previewVerse(2), bookName = "Genèse", isSelected = true, onSelect = {})
+        }
     }
 }
 
@@ -246,6 +311,12 @@ private fun ReaderNavBar(
     }
 }
 
+@Preview
+@Composable
+private fun ReaderNavBarPreview() {
+    MaterialTheme { ReaderNavBar(onPrevious = {}, onNext = {}) }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BookListSheet(
@@ -266,18 +337,55 @@ private fun BookListSheet(
         HorizontalDivider()
         LazyColumn {
             items(books, key = { it.bookId }) { book ->
-                val name = if (language == Language.FR) book.nameFr else book.nameEn
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onSelectBook(book.bookId) }
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                BookListRow(
+                    name = if (language == Language.FR) book.nameFr else book.nameEn,
+                    onClick = { onSelectBook(book.bookId) },
                 )
-                HorizontalDivider()
             }
             item { Spacer(modifier = Modifier.height(32.dp)) }
         }
     }
 }
+
+@Composable
+private fun BookListRow(name: String, onClick: () -> Unit) {
+    Column {
+        Text(
+            text = name,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+        )
+        HorizontalDivider()
+    }
+}
+
+@Preview
+@Composable
+private fun BookListRowPreview() {
+    MaterialTheme { BookListRow(name = "Genèse", onClick = {}) }
+}
+
+// ── Preview helpers ───────────────────────────────────────────────────────────
+
+private fun previewVerse(number: Int) = BibleVerse(
+    translation = "LSG", bookId = "GEN", chapter = 1, verse = number,
+    text = "Au commencement, Dieu créa les cieux et la terre.",
+)
+
+private fun previewUiState() = ReaderUiState(
+    translation = Translation.LOUIS_SEGOND,
+    language = Language.FR,
+    bookId = "GEN",
+    chapter = 1,
+    bookName = "Genèse",
+    totalChapters = 50,
+    verses = listOf(
+        previewVerse(1),
+        previewVerse(2),
+        previewVerse(3),
+    ),
+    bookList = CanonicalBooks.all,
+)

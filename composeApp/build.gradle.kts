@@ -32,6 +32,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.navigation)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
@@ -45,6 +46,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.android)
+            implementation(compose.uiTooling)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
