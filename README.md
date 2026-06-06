@@ -7,7 +7,7 @@
 ![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.6-4285F4?style=flat&logo=jetpackcompose)
 ![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-green?style=flat)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20MVI-blue?style=flat)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat)
+![License](https://img.shields.io/badge/License-Apache_2.0-lightgrey?style=flat)
 
 ---
 
@@ -114,10 +114,10 @@ rema/
 ## Features
 
 ### Implemented
-- [ ] Display Bible chapters by book and chapter number
-- [ ] Switch between translations at runtime
+- [x] Display Bible chapters by book and chapter number
+- [x] Switch between translations at runtime
 - [ ] Verse-level bookmarking
-- [ ] Offline-first with SQLDelight cache
+- [x] Offline-first with SQLDelight cache
 - [ ] Full-text verse search
 
 ### Planned
