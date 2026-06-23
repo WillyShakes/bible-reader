@@ -4,7 +4,7 @@
 
 ---
 
-[Translation] [AC-G-5] — Step 5 translation preview uses hardcoded John 3:16–18 strings instead of a live BibleRepository query. Replace once Feature a (Bible Content) wires up BibleRepositoryImpl and the SQLDelight database is populated.
+[Translation] [AC-G-5] — Step 5 translation preview uses hardcoded John 3:16–18 strings. Will remain hardcoded until the bundled bible_reader.db asset is populated and BibleRepositoryImpl can serve live verse queries. Replace during or after the database seeding milestone.
 Found during: Feature g — Onboarding
 Priority: P2
 
@@ -30,4 +30,8 @@ Priority: P2
 
 [Notifications] [AC-G-7] — Time picker in NotificationStep displays a text label instead of a platform-native time picker. Wire via expect/actual before Feature d is implemented.
 Found during: Feature g — Onboarding
+Priority: P2
+
+[BibleContent] [AC-G-5] — Translation preview in OnboardingScreen Step 5 still uses hardcoded strings. Now that bible_reader.db is populated (31,102 KJV + 31,170 LSG verses), this can be replaced with live BibleRepository queries. Wire up when there is a convenient integration point (non-blocking).
+Found during: Feature a — Bible Content (resolved P0 → downgraded to P2)
 Priority: P2

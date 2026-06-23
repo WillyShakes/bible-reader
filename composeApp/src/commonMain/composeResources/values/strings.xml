@@ -63,4 +63,12 @@
     <!-- Step 8 — Coach mark -->
     <string name="onboarding_coach_mark_read">Marquez ce chapitre comme lu</string>
     <string name="onboarding_coach_mark_dismiss">Compris</string>
+
+    <!-- Reader screen -->
+    <string name="reader_prev_chapter">Chapitre précédent</string>
+    <string name="reader_next_chapter">Chapitre suivant</string>
+    <string name="reader_translation_toggle">Traduction</string>
+    <string name="reader_book_list_title">Livres</string>
+    <string name="reader_loading">Chargement…</string>
+    <string name="reader_verse_reference_format">%1$s %2$d:%3$d</string>
 </resources>

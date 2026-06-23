@@ -2,6 +2,7 @@ package app.rema.bible.shared
 
 import android.content.SharedPreferences
 import domain.model.enums.Language
+import java.util.Locale
 
 /**
  * Android implementation backed by SharedPreferences.
@@ -29,5 +30,17 @@ actual object AppPreferences {
 
     actual fun setPreferredLanguage(language: Language) {
         prefs?.edit()?.putString("preferred_language", language.name)?.apply()
+    }
+
+    actual fun getDeviceLocale(): Language {
+        // When prefs is null (JVM unit tests, no Application), return FR as the safe default
+        // so tests that predate locale detection do not break.
+        if (prefs == null) return Language.FR
+        val tag = Locale.getDefault().language
+        return when {
+            tag.startsWith("fr") -> Language.FR
+            tag.startsWith("en") -> Language.EN
+            else -> Language.FR
+        }
     }
 }

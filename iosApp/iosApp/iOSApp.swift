@@ -1,10 +1,10 @@
 import SwiftUI
-import shared
+import ComposeApp
 
 @main
 struct iOSApp: App {
     init() {
-        // TODO (Feature e): KoinApplication startup — startKoin(modules: appModules)
+        KoinInitializerKt.doInitKoin()
     }
 
     var body: some Scene {

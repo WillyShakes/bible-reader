@@ -69,6 +69,26 @@ Every screen must follow the MVI pattern defined in CLAUDE.md. Specific rules:
 
 ---
 
+## Compose UI Rules
+
+**Previews — mandatory on every composable:**
+- Every `@Composable` function that renders UI must have a companion `@Preview` function directly below it in the same file.
+- Preview function naming: `@Preview fun [ComposableName]Preview()`.
+- If a composable requires a `UiState`, supply a hardcoded preview instance — never skip the preview because the data is "complex".
+- Screen-level previews must cover at least two states: loading/empty and populated.
+
+**Composable size — hard cap:**
+- No `@Composable` function body may exceed **50 lines** (excluding the closing brace).
+- When a composable approaches this limit, extract logical sub-sections into named private composables before the limit is hit.
+- Good split signals: a distinct visual section (header, list row, bottom bar), a conditional branch, or a repeated pattern.
+
+**Reuse — extract before duplicating:**
+- Before writing a new composable, check the same feature package and `composeApp/src/commonMain/kotlin/ui/` for an existing one that does the same job.
+- If a composable is used in two or more feature packages, move it to `composeApp/src/commonMain/kotlin/ui/components/`.
+- Never copy-paste a composable — extract and share it.
+
+---
+
 ## Domain Rules (spec-enforced, not style)
 
 These rules come directly from SPEC.md. Violating them is a spec violation.

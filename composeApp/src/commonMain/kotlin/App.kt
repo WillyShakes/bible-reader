@@ -1,12 +1,12 @@
 package app.rema.bible
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.rema.bible.shared.AppPreferences
 import feature.onboarding.OnboardingScreen
+import feature.reader.ReaderScreen
 
 /**
  * Root composable. Called from MainActivity (Android) and the iOS @main entry point.
@@ -28,8 +28,8 @@ fun App() {
             )
         }
         composable("home") {
-            // TODO (Feature b): replace with PlanScreen() / ReaderScreen()
-            Text("Home")
+            // Feature b will wrap this with PlanScreen once reading plan tracking is implemented.
+            ReaderScreen()
         }
     }
 }

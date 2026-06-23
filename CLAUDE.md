@@ -240,6 +240,15 @@ Android Context: provided via Koin as applicationContext singleton, initialized 
    in CLAUDE.md — this takes precedence over the SPEC.md example which was
    illustrative only.
 
+5. Compose Previews — mandatory rule (see RULES.md §Compose UI Rules):
+   - Preview annotation import: `org.jetbrains.compose.ui.tooling.preview.Preview`
+   - NOT `androidx.compose.ui.tooling.preview.Preview` (Android-only, breaks commonMain)
+   - `compose.components.uiToolingPreview` is in composeApp commonMain dependencies.
+   - `compose.uiTooling` is in composeApp androidMain dependencies.
+   - Every UI composable must have a `@Preview` function immediately after it.
+   - Screen-level: extract a `[Feature]Content(uiState, onIntent)` composable so previews
+     don't need a ViewModel, then call it from the public `[Feature]Screen(viewModel)` entry.
+
 
 
 ---

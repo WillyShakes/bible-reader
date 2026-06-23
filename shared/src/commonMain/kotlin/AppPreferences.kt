@@ -21,4 +21,10 @@ expect object AppPreferences {
 
     /** Persists the user's preferred language. Called at AC-G-1 on language selection. */
     fun setPreferredLanguage(language: Language)
+
+    /**
+     * Returns the device's system locale mapped to a supported [Language].
+     * Falls back to [Language.FR] for any locale not explicitly supported (AC-G-1).
+     */
+    fun getDeviceLocale(): Language
 }
